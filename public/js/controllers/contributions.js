@@ -37,6 +37,16 @@ window.angular.module('ngff.controllers.contributions', [])
           $scope.scoreDistribution = Math.floor(scoreDistribution*100) + "% of all contributions";
 
           $scope.level = getLevel(data.scoreDistribution.user);
+          
+          $scope.pieChartContributionScore = [
+            {"name" : Global.currentUser().name, "score" : data.numberOfContributions.user}, 
+            {"name" : "Rest of team", "score" : (data.numberOfContributions.total - data.numberOfContributions.user)}
+          ];
+          
+          $scope.pieChartScoreDistribution = [
+            {"name" : Global.currentUser().name, "score" : data.scoreDistribution.user}, 
+            {"name" : "Rest of team", "score" : (data.scoreDistribution.total - data.scoreDistribution.user)}
+          ];
         })
       }
 
@@ -105,7 +115,9 @@ window.angular.module('ngff.controllers.contributions', [])
         {name:'Level 3', value:90},
         {name:'Level 4', value:140},
         {name:'Level 5', value:200}
-      ]
+      ];
+
+      
         
       $scope.valueToText = function(val, type){
         for(var i = 0; i < $scope[type].length; i++){
@@ -126,14 +138,16 @@ window.angular.module('ngff.controllers.contributions', [])
       var getLevel = function(score){
         var level = $scope.levels.length;
         while(level > 0){
-          if($scope.levels[level-1].value < score){
+          if(parseInt($scope.levels[level-1].value) < parseInt(score)){
+            return $scope.levels[level].name;
             break;
           }
 
+
           level--;
         }
-        console.log(level);
-        return $scope.levels[level-1].name;
+
+        return "Level 1";
       }
 
     }])

@@ -31,8 +31,12 @@ footer p{
 
 .userContributions {
   width:450px;
-  height:350px;
-  overflow:scroll;
+  height:450px;
+  overflow:auto;
   margin:30px; 
   float:left;
+}
+
+.centeredText {
+  text-align: center;
 }

@@ -20,9 +20,19 @@
       </table>
     <br>
     <h4>{{level}}</h4>
-    <h4>Contributions:</h4> {{contributionScore}}
-    <br>
-    <h4>Score Distribution:</h4> {{scoreDistribution}}
+    <div class="userContributions centeredText">
+      <h4>Contributions:</h4> 
+      <graph values="pieChartContributionScore"></graph> 
+      <br />
+      {{contributionScore}}
+    </div>
+    <div class="userContributions centeredText">
+      <h4>Impact Distribution:</h4> 
+      <graph values="pieChartScoreDistribution"></graph> 
+      <br />
+      {{scoreDistribution}}
+    </div>
+    
   </div>
   <div ng-hide="global.isSignedIn()">
     <h2>Contribute</h2>
