@@ -1,0 +1,19 @@
+<div ng-controller="MasterViewController" ng-init="findAll()">
+    
+
+    <div ng-repeat="user in userContributions" class="userContributions">
+      <h3>{{user.user.name}}</h3>
+      <table class="table table-striped">
+        <th>Title</th>
+        <th>Complete</th>
+        <th>Created On</th>
+
+        <tr ng-repeat="contribution in user.contributions">
+          <td><a href="#!/contributions/{{ contribution._id }}">{{contribution.title}}</a></td>
+          <td>{{ valueToText(contribution.complete, "completeds") }}</td>
+          <td>{{ contribution.created_on.split("T")[0]}}</td>
+        </tr>
+      </table>
+    </div>
+  <br>
+</div>

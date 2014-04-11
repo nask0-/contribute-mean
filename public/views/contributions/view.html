@@ -1,0 +1,9 @@
+<div ng-controller="ContributionsController" ng-init="findOne()">
+  <h2>{{ contribution.title }}</h2>
+  <br>
+  <p><h4>{{ contribution.description }}</h4></p>
+  <br>
+  <p><strong>Owner: </strong>{{ contribution.owner.name }}</p>
+  <p><strong>Impact: </strong>{{ valueToText(contribution.population_impact,"population_impacts") }} | <strong>Has it been done before: </strong>{{ valueToText(contribution.done_before, "done_befores") }} | <strong>Completed: </strong>{{ valueToText(contribution.complete, "completeds") }} | <strong>Duration: </strong>{{ valueToText(contribution.duration, "durations") }} </p>
+  <a href="#!/masterView">All contributions</a> <a href="#!/contributions">Your contributions</a>
+</div>

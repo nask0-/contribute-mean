@@ -1,0 +1,56 @@
+<div ng-controller="ContributionsController">
+  <form class="form-horizontal" ng-submit="update()" ng-init="findOne()">
+    <div class="control-group">
+      <label class="control-label" for="title">Title</label>
+      <div class="controls">
+        <input type="text" ng-model="contribution.title" id="title" placeholder="Title">
+      </div>
+    </div>
+    <div class="control-group">
+      <label class="control-label" for="description">Description</label>
+      <div class="controls">
+        <textarea  rows="4" cols="50" ng-model="contribution.description" id="description" placeholder="Description"></textarea>
+      </div>
+    </div>
+
+    <div class="control-group">
+      <label class="control-label" for="population_impact">Impact</label>
+      <div class="controls">
+        <select id="population_impact" class="form-control" ng-model="contribution.population_impact" ng-options="item.value as item.name for item in population_impacts"> 
+        <option ng-value="contribution.population_impact"></option>  
+        </select>
+      </div>
+    </div>
+
+
+    <div class="control-group">
+      <label class="control-label" for="done_before">Done before?</label>
+      <div class="controls">
+        <select id="done_before" class="form-control" ng-model="contribution.done_before" ng-options="item.value as item.name for item in done_befores">
+
+        </select>
+      </div>
+    </div>
+
+    <div class="control-group">
+      <label class="control-label" for="complete">Completed?</label>
+      <div class="controls">
+        <select id="complete" class="form-control" ng-model="contribution.complete" ng-options="item.value as item.name for item in completeds">
+
+        </select>
+      </div>
+    </div>
+    <div class="control-group">
+      <label class="control-label" for="duration">How long did it take?</label>
+      <div class="controls">
+        <select id="duration" class="form-control" ng-model="contribution.duration" ng-options="item.value as item.name for item in durations">
+        </select>
+      </div>
+    </div>
+    <div class="control-group">
+      <div class="controls">
+        <input type="submit" class="btn">
+      </div>
+    </div>
+  </form>
+</div>
