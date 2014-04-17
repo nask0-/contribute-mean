@@ -19,6 +19,7 @@ module.exports = function (app, passport, auth) {
   var contributions = require('../app/controllers/contributions')
   app.get('/contributions', contributions.all);
   app.get('/contributions/masterview', contributions.masterall);
+  app.get('/contributions/getContributionsForUser', contributions.getContributionsForUser);
   app.get('/contributions/userContributionsPercentage', auth.requiresLogin, contributions.userContributionsPercentage);
   app.post('/contributions', auth.requiresLogin, contributions.create);
   app.get('/contributions/:contributionId', contributions.show);

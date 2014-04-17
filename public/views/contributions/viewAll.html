@@ -6,14 +6,19 @@
       <table class="table table-striped">
         <th>Title</th>
         <th>Complete</th>
-        <th>Created On</th>
+        <th ng-click="changeSorting('date', user.user, $index)">Date Created</th>
+        <th ng-click="changeSorting('score', user.user, $index)">Score</th>
+        <th>Rate Task</th>
 
         <tr ng-repeat="contribution in user.contributions">
           <td><a href="#!/contributions/{{ contribution._id }}">{{contribution.title}}</a></td>
           <td>{{ valueToText(contribution.complete, "completeds") }}</td>
           <td>{{ contribution.created_on.split("T")[0]}}</td>
+          <td>{{ contribution.score.toFixed(2) }}</td>
+          <td></td>
         </tr>
       </table>
+      <rating ng-model="rate" max="max" readonly="isReadonly" on-hover="hoveringOver(value)" on-leave="overStar = null"></rating>
     </div>
   <br>
 </div>

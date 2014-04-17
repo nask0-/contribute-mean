@@ -35,7 +35,28 @@ exports.contribution = function(req, res, next,id){
 
 //Get all contributions for this user
 exports.all = function(req, res){
-  Contribution.find({'owner' : req.user}).populate('owner').sort({created_on : -1}).limit(15).exec(function(err, contributions){
+  var sortDesc = -1;
+  if(req.query.sortDesc) {
+    sortDesc = req.query.sortDesc;
+  }
+
+  var orderBy = {created_on : -1};
+  if(req.query.orderBy){
+    var o = req.query.orderBy;
+    switch(o) {
+      case "score" :
+        orderBy = {score : sortDesc};
+        break;
+      case "date" :
+        orderBy = {created_on : sortDesc};
+        break;
+      case "title" :
+        orderBy = {title : sortDesc};
+        break;
+    }
+  }
+
+  Contribution.find({'owner' : req.user}).populate('owner').sort(orderBy).limit(15).exec(function(err, contributions){
     if(err){
       res.render('error', {status: 500});
     } else {
@@ -44,9 +65,44 @@ exports.all = function(req, res){
   });
 }
 
+
+exports.getContributionsForUser = function(req, res){
+  var user;
+  if(req.query.user){
+    user = JSON.parse(req.query.user);
+  }
+
+  var sortDesc = -1;
+  if(req.query.sortDesc) {
+    sortDesc = req.query.sortDesc;
+  }
+  var orderBy = {created_on : sortDesc};
+  if(req.query.orderBy){
+    var o = req.query.orderBy;
+    switch(o) {
+      case "score" :
+        orderBy = {score : sortDesc};
+        break;
+      case "date" :
+        orderBy = {created_on : sortDesc};
+        break;
+      case "title" :
+        orderBy = {title : sortDesc};
+        break;
+    }
+  }
+  Contribution.find({'owner' : user["_id"]}).populate('owner').sort(orderBy).limit(15).exec(function(err, contributions){
+        var userView = {
+            user: user,
+            contributions: contributions
+          }
+        res.jsonp(userView);
+  });
+}
 //Get newest 15 contributions of each user
 exports.masterall = function(req, res){
   var User = mongoose.model('User');
+
 
   User.find().exec().then(function(users){
     getAllContributions(users).then(function(stitchedResponses){
@@ -57,9 +113,24 @@ exports.masterall = function(req, res){
   var getAllContributions = function(users){
     var the_promises = [];
 
+    var orderBy = {created_on : -1};
+    if(req.query.orderBy){
+      var o = req.query.orderBy;
+      switch(o) {
+        case "score" :
+          orderBy = {score : -1};
+          break;
+        case "date" :
+          orderBy = {created_on : -1};
+          break;
+        case "title" :
+          orderBy = {title : -1};
+          break;
+      }
+    }
     users.forEach(function(user) {
       var deferred = Q.defer();
-      Contribution.find({'owner' : user["_id"]}).populate('owner').sort({created_on : -1}).limit(15).exec(function(err, contributions){
+      Contribution.find({'owner' : user["_id"]}).populate('owner').sort(orderBy).limit(15).exec(function(err, contributions){
         var userView = {
             user: user,
             contributions: contributions

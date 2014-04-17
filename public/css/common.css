@@ -29,12 +29,19 @@ footer p{
   margin:auto;
 }
 
-.userContributions {
+.twoColumns {
   width:450px;
   height:450px;
   overflow:auto;
   margin:30px; 
   float:left;
+}
+
+.userContributions {
+  width:650px;
+  height:450px;
+  overflow:auto;
+  margin:10px; 
 }
 
 .centeredText {

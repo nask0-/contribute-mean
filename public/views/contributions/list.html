@@ -4,9 +4,10 @@
       <a href="#!/contributions/create">Add New</a>
       <br><br>
       <table class="table table-striped">
-        <th>Title</th>
+        <th ng-click="changeSorting('title')">Title</th>
         <th>Complete</th>
-        <th>Date Created</th>
+        <th ng-click="changeSorting('date')">Date Created</th>
+        <th ng-click="changeSorting('score')">Score</th>
         <th>Edit</th>
         <th>Delete</th>
 
@@ -14,19 +15,20 @@
           <td><a href="#!/contributions/{{ contribution._id }}">{{contribution.title}}</a></td>
           <td>{{ valueToText(contribution.complete, "completeds") }}</td>
           <td>{{ contribution.created_on.split("T")[0]}}</td>
+          <td>{{ contribution.score.toFixed(2) }}</td>
           <td><a href="#!/contributions/{{ contribution._id }}/edit">Edit</a></td>
           <td><a href="" ng-click="destroy(contribution)">Delete</a></td>
         </tr>
       </table>
     <br>
     <h4>{{level}}</h4>
-    <div class="userContributions centeredText">
+    <div class="twoColumns centeredText">
       <h4>Contributions:</h4> 
       <graph values="pieChartContributionScore"></graph> 
       <br />
       {{contributionScore}}
     </div>
-    <div class="userContributions centeredText">
+    <div class="twoColumns centeredText">
       <h4>Impact Distribution:</h4> 
       <graph values="pieChartScoreDistribution"></graph> 
       <br />
