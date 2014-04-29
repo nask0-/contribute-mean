@@ -159,6 +159,26 @@ exports.update = function(req, res){
 }
 
 
+exports.addRating = function(req, res){
+  var contribution = req.body.contribution;
+  var user = req.body.user;
+  var rating = req.body.rating;
+
+  
+  Contribution.
+  update({'_id': contribution["_id"]}, 
+    { $addToSet: {rating: {'by_user': user["_id"], 'rate': parseInt(rating)}} }, function (err, count) {
+      Contribution.findOne({'_id': contribution["_id"]}, function(err2, updatedContribution){
+        console.log(updatedContribution);
+        var newScore = calculateScore(updatedContribution);
+        Contribution.update({'_id': contribution["_id"]}, { $set: {score: newScore} }, function(err3, count2){
+          res.jsonp(newScore);
+        });  
+      });
+      
+    });
+}
+
 //Delete a contribution
 exports.destroy = function(req, res){
   var contribution = req.contribution;
@@ -291,6 +311,19 @@ var calculateScore = function(contribution){
 
   if(!contribution.duration) contribution.duration = "1";
   var duration = parseInt(contribution.duration);
+
+  if(contribution.rating != null){
+    var rateScore = 0;
+    JSON.parse(JSON.stringify(contribution.rating)).forEach(function(rate) {
+      rateScore += parseInt(rate["rate"]);
+    })
+
+    if(rateScore != 1) {
+      score = score + score*rateScore/10;
+    }
+  }
+  
+
   return score *= (1 + duration/10);
 
 }

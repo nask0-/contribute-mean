@@ -8,17 +8,17 @@
         <th>Complete</th>
         <th ng-click="changeSorting('date', user.user, $index)">Date Created</th>
         <th ng-click="changeSorting('score', user.user, $index)">Score</th>
-        <th>Rate Task</th>
+        <th ng-show="user.user.email != global.currentUser().email">Rate Task</th>
 
         <tr ng-repeat="contribution in user.contributions">
           <td><a href="#!/contributions/{{ contribution._id }}">{{contribution.title}}</a></td>
           <td>{{ valueToText(contribution.complete, "completeds") }}</td>
           <td>{{ contribution.created_on.split("T")[0]}}</td>
           <td>{{ contribution.score.toFixed(2) }}</td>
-          <td></td>
+          <td ng-show="user.user.email != global.currentUser().email">
+           <div ng-init="x = 5" ng-click="saveRating(contribution, x, $parent.$index, $index)"><rating value="x" max="10"></rating> <b>({{x}})</b></div></td>
         </tr>
       </table>
-      <rating ng-model="rate" max="max" readonly="isReadonly" on-hover="hoveringOver(value)" on-leave="overStar = null"></rating>
     </div>
   <br>
 </div>

@@ -22,6 +22,7 @@ module.exports = function (app, passport, auth) {
   app.get('/contributions/getContributionsForUser', contributions.getContributionsForUser);
   app.get('/contributions/userContributionsPercentage', auth.requiresLogin, contributions.userContributionsPercentage);
   app.post('/contributions', auth.requiresLogin, contributions.create);
+  app.post('/contributions/updateContributionRating', auth.requiresLogin, contributions.addRating);
   app.get('/contributions/:contributionId', contributions.show);
   app.put('/contributions/:contributionId', auth.requiresLogin, contributions.update);
   app.del('/contributions/:contributionId', auth.requiresLogin, contributions.destroy);

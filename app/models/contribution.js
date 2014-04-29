@@ -12,7 +12,11 @@ var ContributionSchema = new Schema({
   complete: {type: String},
   duration: {type: String},
   created_on: {type: Date, default: Date.now},
-  score: {type: Number}
+  score: {type: Number},
+  rating: [{
+    by_user: String,
+    rate : Number
+  }]
 });
 
 ContributionSchema.statics = {

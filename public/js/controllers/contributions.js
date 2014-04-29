@@ -202,6 +202,18 @@ window.angular.module('ngff.controllers.contributions', [])
       });
     }
 
+    $scope.saveRating = function (contribution, rating, uindex, cindex) {
+      $http({
+        url: '/contributions/updateContributionRating',
+        method: 'POST',
+        data: {contribution: contribution, user: Global.currentUser(), rating: rating}
+      })
+      .success(function(result){
+        $scope.userContributions[uindex].contributions[cindex].score = parseInt(result);
+        console.log($scope.userContributions[uindex].contributions[cindex]);
+      });
+    }
+
     $scope.changeSorting = function(sorting, user, i){
       if(sortBy == sorting) sortDesc = (-1) * (sortDesc);
       sortBy = sorting;
@@ -278,5 +290,25 @@ window.angular.module('ngff.controllers.contributions', [])
       if(confirmCancel)
         $location.path("/#!/contributions");
     }
+
+
+
+
+
+
+          //TEST
+
+  $scope.rate = 7;
+  $scope.max = 10;
+  $scope.isReadonly = false;
+
+
+  $scope.ratingStates = [
+    {stateOn: 'glyphicon-ok-sign', stateOff: 'glyphicon-ok-circle'},
+    {stateOn: 'glyphicon-star', stateOff: 'glyphicon-star-empty'},
+    {stateOn: 'glyphicon-heart', stateOff: 'glyphicon-ban-circle'},
+    {stateOn: 'glyphicon-heart'},
+    {stateOff: 'glyphicon-off'}
+  ];
 
   }]);
