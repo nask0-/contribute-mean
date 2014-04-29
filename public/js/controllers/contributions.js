@@ -222,6 +222,7 @@ window.angular.module('ngff.controllers.contributions', [])
     }
 
     $scope.saveRating = function (contribution, rating, uindex, cindex) {
+      console.log($scope.userContributions[uindex].contributions[cindex]);
       $http({
         url: '/contributions/updateContributionRating',
         method: 'POST',
@@ -229,6 +230,8 @@ window.angular.module('ngff.controllers.contributions', [])
       })
       .success(function(result){
         $scope.userContributions[uindex].contributions[cindex].score = parseInt(result);
+        $scope.userContributions[uindex].contributions[cindex].rating["read_only"] = true;
+        $scope.userContributions[uindex].contributions[cindex].rating["read_only_score"] = rating;
         console.log($scope.userContributions[uindex].contributions[cindex]);
       });
     }
