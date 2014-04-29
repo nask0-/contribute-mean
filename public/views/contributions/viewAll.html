@@ -18,7 +18,7 @@
           <td ng-show="user.user.email != global.currentUser().email">
            <div ng-hide="contribution.rating['read_only']" ng-init="x = 5" ng-click="saveRating(contribution, x, $parent.$index, $index)"><rating value="x" max="10"></rating> <b>({{x}})</b></div>
 
-           <div ng-show="contribution.rating['read_only']" ng-init="x = contribution.rating['read_only_score']"><rating readonly="true" value="x" max="10"></rating> <b>({{x}})</b></div>
+           <div ng-show="contribution.rating['read_only']" ng-init="y = contribution.rating['read_only_score']"><rating readonly="true" value="y" max="10"></rating> <b>({{y}})</b></div>
          </td>
         </tr>
       </table>

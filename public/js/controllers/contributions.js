@@ -201,7 +201,6 @@ window.angular.module('ngff.controllers.contributions', [])
           
         }
         
-        console.log($scope.userContributions);
 
 
       }).error(function(data){
