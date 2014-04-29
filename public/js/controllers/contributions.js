@@ -184,6 +184,26 @@ window.angular.module('ngff.controllers.contributions', [])
     $scope.findAll = function(){
       $http.get('/contributions/masterview').success(function(data){
         $scope.userContributions = data;
+
+
+        //Now flag all contributions we already ranked
+        for(var i=0; i<$scope.userContributions.length; i++){
+          for(var z=0; z<$scope.userContributions[i].contributions.length; z++){
+            if($scope.userContributions[i].contributions[z].rating != null){
+              for(var j=0; j<$scope.userContributions[i].contributions[z].rating.length; j++){
+                if($scope.userContributions[i].contributions[z].rating[j]["by_user"] == Global.currentUser()._id){
+                  $scope.userContributions[i].contributions[z].rating["read_only"] = true;
+                  $scope.userContributions[i].contributions[z].rating["read_only_score"] = $scope.userContributions[i].contributions[z].rating[j].rate;
+                }  
+              }
+            }
+          }
+          
+        }
+        
+        console.log($scope.userContributions);
+
+
       }).error(function(data){
         alert("Error receiving data from server");
       })

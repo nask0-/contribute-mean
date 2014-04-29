@@ -2,7 +2,6 @@ window.angular.module('ngff.controllers.contributions', [])
   .controller('MasterViewController', ['$scope','$routeParams','$location','Global','Contributions','$http',
     function ($scope, $routeParams, $location, Global, Contributions, $http) {
       $scope.global = Global;
-      
  
 
       $scope.find = function(query){
@@ -12,8 +11,10 @@ window.angular.module('ngff.controllers.contributions', [])
       }
 
       $scope.findAll = function(){
+
         $http.get('/contributions/masterview').success(function(data){
           $scope.userContributions = data;
+
         }).error(function(data){
           alert("Error receiving data from server");
         })

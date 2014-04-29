@@ -314,12 +314,12 @@ var calculateScore = function(contribution){
 
   if(contribution.rating != null){
     var rateScore = 0;
-    JSON.parse(JSON.stringify(contribution.rating)).forEach(function(rate) {
+    contribution.rating.forEach(function(rate) {
       rateScore += parseInt(rate["rate"]);
     })
 
     if(rateScore != 1) {
-      score = score + score*rateScore/10;
+      score = score + score*rateScore/30;
     }
   }
   
